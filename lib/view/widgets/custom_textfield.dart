@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends HookWidget {
   final TextEditingController controller;
   final List<TextInputFormatter>? formatter;
   final String hintText;
@@ -28,12 +29,10 @@ class CustomTextField extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20.h),
       child: TextFormField(
         readOnly: readOnly,
-        autovalidateMode: AutovalidateMode.always,
         inputFormatters: formatter,
         controller: controller,
         validator: validator,
         onTap: onTap,
-        onChanged: onChanged,
         decoration: InputDecoration(
             suffixIconConstraints: BoxConstraints(
               maxHeight: 25.h,

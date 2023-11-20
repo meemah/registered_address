@@ -3,15 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:registered_address/model/address.dart';
 import 'package:registered_address/util/custom_input_formatter.dart';
 import 'package:registered_address/util/validators.dart';
 import 'package:registered_address/view/widgets/custom_button.dart';
 import 'package:registered_address/view/widgets/custom_textfield.dart';
-import 'package:registered_address/view/widgets/success_dialog.dart';
+
+import '../../model/address.dart';
+import '../widgets/success_dialog.dart';
 
 class ResidentialAddressView extends HookWidget with Validators {
-  final addressFormKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   ResidentialAddressView({super.key});
 
   @override
@@ -25,6 +27,10 @@ class ResidentialAddressView extends HookWidget with Validators {
 
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(
+          Icons.keyboard_arrow_left,
+          color: Colors.white,
+        ),
         bottom: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 5.h),
             child: Row(
@@ -57,11 +63,10 @@ class ResidentialAddressView extends HookWidget with Validators {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
-            key: addressFormKey,
-            onChanged: () =>
-                isFormValidated.value = addressFormKey.currentState!.validate(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            key: _formKey,
+            onChanged: () => isFormValidated.value =
+                _formKey.currentState?.validate() ?? false,
+            child: ListView(
               children: [
                 SizedBox(
                   height: 15.h,
@@ -126,30 +131,32 @@ class ResidentialAddressView extends HookWidget with Validators {
                   controller: apartmentCtl,
                   hintText: "Apartment, suite or unit",
                 ),
-                const Spacer(),
-                CustomButton(
-                    isButtonEnabled: isFormValidated.value,
-                    buttonTitle: "Next",
-                    onTap: () {
-                      Address address = Address(
-                          country: countryCtrl.text.trim(),
-                          prefecture: prefectureCtrl.text.trim(),
-                          municipality: municipalityCtrl.text.trim(),
-                          streetAddress: streetCtrl.text.trim(),
-                          apartment: apartmentCtl.text.trim());
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SuccessDialog(
-                            address: address,
-                          );
-                        },
-                      );
-                    })
               ],
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: CustomButton(
+            isButtonEnabled: isFormValidated.value,
+            buttonTitle: "Next",
+            onTap: () {
+              Address address = Address(
+                  country: countryCtrl.text.trim(),
+                  prefecture: prefectureCtrl.text.trim(),
+                  municipality: municipalityCtrl.text.trim(),
+                  streetAddress: streetCtrl.text.trim(),
+                  apartment: apartmentCtl.text.trim());
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SuccessDialog(
+                    address: address,
+                  );
+                },
+              );
+            }),
       ),
     );
   }
