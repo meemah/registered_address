@@ -35,21 +35,7 @@ class CustomTextField extends StatelessWidget {
                   right: 14,
                 ),
                 child: suffixIcon),
-
         hintText: hintText,
-        // enabledBorder: outlineInputBorder.copyWith(
-        //   borderRadius: BorderRadius.circular(radius.r),
-        // ),
-        // hintStyle: KebleTextStyle.norlmalTextRegular(
-        //     fontWeight: FontWeight.w800, color: KebleColors.greyScale11),
-        // contentPadding:
-        //     const EdgeInsets.symmetric(horizontal: 14.0, vertical: 13),
-        // border: outlineInputBorder.copyWith(
-        //   borderRadius: BorderRadius.circular(radius.r),
-        // ),
-        // focusedBorder: outlineInputBorder.copyWith(
-        //     borderRadius: BorderRadius.circular(radius.r),
-        //     borderSide: const BorderSide(color: KebleColors.primaryColor)),
       ),
     );
   }
