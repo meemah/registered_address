@@ -1,1 +1,3 @@
 Here is the git repo url: https://github.com/meemah/registered_address
+Developer Name: Maimunah Ibrahim
+Email: maimunahibro94@gmail.com
