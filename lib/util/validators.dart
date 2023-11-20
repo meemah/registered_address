@@ -8,4 +8,11 @@ mixin Validators {
       FormBuilderValidators.required(errorText: errorMessage),
     ]);
   }
+
+  FormFieldValidator<String> lengthValidator(
+      {required String errorMessage, required int length}) {
+    return FormBuilderValidators.compose([
+      FormBuilderValidators.equalLength(length, errorText: errorMessage),
+    ]);
+  }
 }
